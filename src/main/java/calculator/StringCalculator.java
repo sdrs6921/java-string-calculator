@@ -1,7 +1,7 @@
 package calculator;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
 
@@ -18,17 +18,13 @@ public class StringCalculator {
     }
 
     private static String[] split(String text) {
-        List<String> delimiters = Arrays.asList(",", ":");
-        String delimiterPattern = buildDelimiterPattern(delimiters);
-        return text.split(delimiterPattern);
-    }
-
-    private static String buildDelimiterPattern(List<String> delimiters) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (String delimiter : delimiters) sb.append(delimiter);
-        sb.append("]");
-        return sb.toString();
+        String delimiters = ",|:";
+        Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(text);
+        if (matcher.find()) {
+            delimiters += "|" + matcher.group(1);
+            return matcher.group(2).split(delimiters);
+        }
+        return text.split(delimiters);
     }
 
     private static boolean isNullOrEmpty(String text) {
