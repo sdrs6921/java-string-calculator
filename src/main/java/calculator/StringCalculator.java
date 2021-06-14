@@ -13,6 +13,7 @@ public class StringCalculator {
         }
 
         List<String> numbers = split(expression);
+        assertThatNonNegativeIn(numbers);
         return sumOf(numbers);
     }
 
@@ -27,6 +28,16 @@ public class StringCalculator {
 
         String defaultDelimiterRegex = ",|:";
         return Arrays.asList(expression.split(defaultDelimiterRegex));
+    }
+
+    private static void assertThatNonNegativeIn(List<String> numbers) {
+        boolean hasNegativeNumber = numbers.stream()
+                .mapToInt(Integer::parseInt)
+                .anyMatch(number -> number < 0);
+
+        if (hasNegativeNumber) {
+            throw new RuntimeException();
+        }
     }
 
     private static int sumOf(List<String> numbers) {
