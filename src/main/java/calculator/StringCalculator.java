@@ -1,7 +1,13 @@
 package calculator;
 
 public class StringCalculator {
-    public static int splitAndSum(Object o) {
-        return 0;
+
+    public static int splitAndSum(String text) {
+        if (isNullOrEmpty(text)) return 0;
+        return 1;
+    }
+
+    private static boolean isNullOrEmpty(String text) {
+        return text == null || text.isEmpty();
     }
 }
