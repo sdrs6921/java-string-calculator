@@ -11,10 +11,8 @@ public class StringCalculator {
         return sum(tokens);
     }
 
-    private static int sum(String[] tokens) {
-        int sum = 0;
-        for (String token : tokens) sum += Integer.parseInt(token);
-        return sum;
+    private static boolean isNullOrEmpty(String text) {
+        return text == null || text.isEmpty();
     }
 
     private static String[] split(String text) {
@@ -27,7 +25,16 @@ public class StringCalculator {
         return text.split(delimiters);
     }
 
-    private static boolean isNullOrEmpty(String text) {
-        return text == null || text.isEmpty();
+    private static int sum(String[] tokens) {
+        int sum = 0;
+        for (String token : tokens) {
+            if (!Pattern.matches("^[0-9]+$", token)) throw new RuntimeException();
+
+            int num = Integer.parseInt(token);
+            if (num < 0) throw new RuntimeException();
+
+            sum += num;
+        }
+        return sum;
     }
 }
