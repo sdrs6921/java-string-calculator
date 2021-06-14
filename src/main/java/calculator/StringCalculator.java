@@ -1,14 +1,21 @@
 package calculator;
 
-import java.util.regex.Matcher;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
 
+    private static final String NUMBER_REGEX = "\\d";
+
     public static int splitAndSum(String text) {
         if (isNullOrEmpty(text)) return 0;
+
         String[] tokens = split(text);
-        return sum(tokens);
+        List<Integer> nums = parseIntoNums(tokens);
+        return nums.stream()
+                .mapToInt(Integer::valueOf)
+                .sum();
     }
 
     private static boolean isNullOrEmpty(String text) {
@@ -16,25 +23,21 @@ public class StringCalculator {
     }
 
     private static String[] split(String text) {
-        String delimiters = ",|:";
-        Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(text);
-        if (matcher.find()) {
-            delimiters += "|" + matcher.group(1);
-            return matcher.group(2).split(delimiters);
-        }
-        return text.split(delimiters);
+        Splitter splitter = new Splitter(text);
+        return splitter.split();
     }
 
-    private static int sum(String[] tokens) {
-        int sum = 0;
+    private static List<Integer> parseIntoNums(String[] tokens) {
+        List<Integer> nums = new ArrayList<>();
         for (String token : tokens) {
-            if (!Pattern.matches("^[0-9]+$", token)) throw new RuntimeException();
-
-            int num = Integer.parseInt(token);
-            if (num < 0) throw new RuntimeException();
-
-            sum += num;
+            validatePositiveNumber(token);
+            nums.add(Integer.parseInt(token));
         }
-        return sum;
+        return nums;
+    }
+
+    private static void validatePositiveNumber(String token) {
+        if (!Pattern.matches(NUMBER_REGEX, token) || Integer.parseInt(token) < 0)
+            throw new RuntimeException();
     }
 }
