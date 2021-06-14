@@ -41,8 +41,20 @@ public class StringCalculatorTest {
     }
 
     @Test
+    public void splitAndSum_쉼표_콜론_custom_구분자() throws Exception {
+        int result = StringCalculator.splitAndSum("//;\n1;2,3:4");
+        assertThat(result).isEqualTo(10);
+    }
+
+    @Test
     public void splitAndSum_negative() throws Exception {
         assertThatThrownBy(() -> StringCalculator.splitAndSum("-1,2,3"))
+                .isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    public void splitAndSum_숫자_이외의_값() throws Exception {
+        assertThatThrownBy(() -> StringCalculator.splitAndSum("롸,1,2"))
                 .isInstanceOf(RuntimeException.class);
     }
 
