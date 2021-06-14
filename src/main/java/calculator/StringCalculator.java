@@ -1,23 +1,36 @@
 package calculator;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
 
     public static int splitAndSum(String expression) {
-        int result = 0;
-
         if (expression == null || expression.isEmpty()) {
-            return result;
+            return 0;
         }
 
-        String[] numbers = expression.split(",|:");
-        result += add(numbers);
-        return result;
+        List<String> numbers = split(expression);
+        return sumOf(numbers);
     }
 
-    private static int add(String[] numbers) {
-        return Arrays.stream(numbers)
+    private static List<String> split(String expression) {
+        String customDelimeterRegex = "//(.)\n(.*)";
+        Matcher matcher = Pattern.compile(customDelimeterRegex).matcher(expression);
+
+        if (matcher.find()) {
+            String customDelimiter = matcher.group(1);
+            return Arrays.asList(matcher.group(2).split(customDelimiter));
+        }
+
+        String defaultDelimiterRegex = ",|:";
+        return Arrays.asList(expression.split(defaultDelimiterRegex));
+    }
+
+    private static int sumOf(List<String> numbers) {
+        return numbers.stream()
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
