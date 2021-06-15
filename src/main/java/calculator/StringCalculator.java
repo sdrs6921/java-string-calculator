@@ -5,6 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
+    private static final String CUSTOM_DELIMETER_REGEX = "//(.)\n(.*)";
+    private static final String DEFAULT_DELIMITER_REGEX = ",|:";
 
     public static int splitAndSum(String expression) {
         if (expression == null || expression.isEmpty()) {
@@ -17,16 +19,14 @@ public class StringCalculator {
     }
 
     private static String[] split(String expression) {
-        String customDelimeterRegex = "//(.)\n(.*)";
-        Matcher matcher = Pattern.compile(customDelimeterRegex).matcher(expression);
+        Matcher matcher = Pattern.compile(CUSTOM_DELIMETER_REGEX).matcher(expression);
 
         if (matcher.find()) {
             String customDelimiter = matcher.group(1);
             return matcher.group(2).split(customDelimiter);
         }
 
-        String defaultDelimiterRegex = ",|:";
-        return expression.split(defaultDelimiterRegex);
+        return expression.split(DEFAULT_DELIMITER_REGEX);
     }
 
     private static void assertThatNonNegativeIn(String[] numbers) {
