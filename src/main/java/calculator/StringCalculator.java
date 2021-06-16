@@ -2,6 +2,7 @@ package calculator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
@@ -11,7 +12,7 @@ public class StringCalculator {
     public static int splitAndSum(String text) {
         if (isNullOrEmpty(text)) return 0;
 
-        String[] tokens = split(text);
+        String[] tokens = Splitter.split(text);
         List<Integer> nums = parseIntoNums(tokens);
         return nums.stream()
                 .mapToInt(Integer::valueOf)
@@ -19,12 +20,7 @@ public class StringCalculator {
     }
 
     private static boolean isNullOrEmpty(String text) {
-        return text == null || text.isEmpty();
-    }
-
-    private static String[] split(String text) {
-        Splitter splitter = new Splitter(text);
-        return splitter.split();
+        return Objects.isNull(text) || text.isEmpty();
     }
 
     private static List<Integer> parseIntoNums(String[] tokens) {
