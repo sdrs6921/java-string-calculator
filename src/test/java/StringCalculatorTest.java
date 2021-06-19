@@ -1,5 +1,9 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -43,6 +47,12 @@ public class StringCalculatorTest {
     public void splitAndSum_negative() throws Exception {
         assertThatThrownBy(() -> StringCalculator.splitAndSum("-1,2,3"))
                 .isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    public void splitAndSum_기존_구분자_또는_커스텀_구분자() {
+        int result = StringCalculator.splitAndSum("//}\n1}2:3,4}5");
+        assertThat(result).isEqualTo(15);
     }
 
 }
