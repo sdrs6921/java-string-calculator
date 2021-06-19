@@ -13,10 +13,10 @@ public class StringCalculator {
         if (StringUtils.isEmpty(input)) {
             return 0;
         }
-        return sum(split(input));
+        return sum(splitTokens(input));
     }
 
-    private static String[] split(String input) {
+    private static String[] splitTokens(String input) {
         String[] tokens = input.split(DELIMITER);
         Matcher m = CUSTOM_PATTERN.matcher(input);
         if (m.find()) {
