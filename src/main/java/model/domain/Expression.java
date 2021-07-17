@@ -8,13 +8,13 @@ public class Expression {
 
     private final List<String> expression;
 
-    public Expression(String[] s) {
-        validateExpresion(s);
-        expression = Arrays.asList(s);
+    public Expression(String[] expressionToken) {
+        validateExpresion(expressionToken);
+        expression = Arrays.asList(expressionToken);
     }
 
-    private void validateExpresion(String[] s) {
-        if (s.length < MIN_EXPRESSION_SIZE || hasEvenExpressionLength(s.length)) {
+    private void validateExpresion(String[] expressionToken) {
+        if (expressionToken.length < MIN_EXPRESSION_SIZE || hasEvenExpressionLength(expressionToken.length)) {
             throw new IllegalStateException("유효하지 않은 수식입니다");
         }
     }
