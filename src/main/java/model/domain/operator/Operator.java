@@ -1,4 +1,4 @@
-package model.domain;
+package model.domain.operator;
 
 public enum Operator {
     PLUS("+"),

@@ -1,4 +1,4 @@
-package model.domain;
+package model.domain.operand;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

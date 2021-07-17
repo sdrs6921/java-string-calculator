@@ -1,4 +1,4 @@
-package model.domain;
+package model.domain.operand;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
