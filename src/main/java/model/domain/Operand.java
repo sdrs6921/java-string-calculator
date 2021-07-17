@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class Operand {
 
     private final int value;
-    private static final String OPERAND_PATTERN_REGEX = "^[0-9]";
+    private static final String OPERAND_PATTERN_REGEX = "^[0-9]+$";
     private static final Pattern OPERAND_PATTERN = Pattern.compile(OPERAND_PATTERN_REGEX);
 
     private Operand(String value) {
