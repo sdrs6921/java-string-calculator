@@ -32,7 +32,7 @@ class OperandsTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"-1", "1"})
-    @DisplayName("operands의 index가 범위를 벗어날 경우 예외를 발생시킵니다")
+    @DisplayName("operands의 index가 범위를 벗어날 경우 예외를 발생시킨다")
     void getElement_throw_exception_with_index_out_of_range(int outOfRangeIndex) {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> operands.getElement(outOfRangeIndex))
@@ -40,10 +40,18 @@ class OperandsTest {
     }
 
     @Test
-    @DisplayName("Operand의 크기를 리턴합니다")
+    @DisplayName("Operand의 크기를 반환한다")
     void getOperandsSize() {
         int operandsSize = operands.getOperandsSize();
 
         assertThat(operandsSize).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Operand의 첫번째 원소를 반환한다")
+    void getFirstElement() {
+        int operand = operands.getFirstElement();
+
+        assertThat(operands.getFirstElement()).isEqualTo(2);
     }
 }

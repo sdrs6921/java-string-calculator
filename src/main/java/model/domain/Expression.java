@@ -1,7 +1,9 @@
 package model.domain;
 
 import model.domain.operand.Operand;
+import model.domain.operand.Operands;
 import model.domain.operator.Operator;
+import model.domain.operator.Operators;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,20 +12,20 @@ import java.util.stream.Collectors;
 
 public class Expression {
     private static final int MIN_EXPRESSION_SIZE = 3;
-    private final List<Operand> operands;
-    private final List<Operator> operators;
+    private final Operands operands;
+    private final Operators operators;
 
     public Expression(final String[] token) {
         validateExpression(token.length);
-        this.operands = parseOperandFromTokens(token);
-        this.operators = parseOperatorsFromTokens(token);
+        this.operands = new Operands(parseOperandFromTokens(token));
+        this.operators = new Operators(parseOperatorsFromTokens(token));
     }
 
-    public List<Operand> getOperands() {
+    public Operands getOperands() {
         return operands;
     }
 
-    public List<Operator> getOperators() {
+    public Operators getOperators() {
         return operators;
     }
 

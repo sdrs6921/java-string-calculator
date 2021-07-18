@@ -19,8 +19,8 @@ public class ExpressionTest {
         expression = new Expression(value.split(" "));
 
         assertAll(
-                () -> assertThat(expression.getOperands().size()).isEqualTo(operandSize),
-                () -> assertThat(expression.getOperators().size()).isEqualTo(operatorSize)
+                () -> assertThat(expression.getOperands().getOperandsSize()).isEqualTo(operandSize),
+                () -> assertThat(expression.getOperators().getOperatorsSize()).isEqualTo(operatorSize)
         );
     }
 

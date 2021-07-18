@@ -3,6 +3,8 @@ package model.domain.operand;
 import java.util.List;
 
 public class Operands {
+    private static final int FIRST_INDEX = 0;
+
     private final List<Operand> operands;
 
     public Operands(List<Operand> operands) {
@@ -18,10 +20,14 @@ public class Operands {
     }
 
     private boolean isIndexOutOfRange(int index) {
-        return index < 0 || index >= getOperandsSize();
+        return index < FIRST_INDEX || index >= getOperandsSize();
     }
 
     public int getOperandsSize() {
         return operands.size();
+    }
+
+    public int getFirstElement() {
+        return operands.get(FIRST_INDEX).value();
     }
 }
