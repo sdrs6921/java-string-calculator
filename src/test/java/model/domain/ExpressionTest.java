@@ -2,19 +2,26 @@ package model.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ExpressionTest {
-
     private Expression expression;
 
     @ParameterizedTest
-    @ValueSource(strings = {"1 + 2", "1 + 2 + 3", "1 + 2 - 3 * 4"})
+    @CsvSource(value = {"1 + 2, 2, 1", "1 + 2 + 3, 3, 2", "1 + 2 - 3 * 4, 4, 3"})
     @DisplayName("수식을 입력받아 값을 초기화한다")
-    void create(String value) {
-        Expression expression = new Expression(value.split(" "));
+    void create(String value, int operandSize, int operatorSize) {
+        expression = new Expression(value.split(" "));
+
+        assertAll(
+                () -> assertThat(expression.getOperands().size()).isEqualTo(operandSize),
+                () -> assertThat(expression.getOperators().size()).isEqualTo(operatorSize)
+        );
     }
 
     @ParameterizedTest
