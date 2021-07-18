@@ -3,14 +3,19 @@ package view;
 import java.util.Scanner;
 
 public class CalculatorView {
-    private final Scanner scanner;
 
-    public CalculatorView(final Scanner scanner) {
-        this.scanner = scanner;
+    private static final String DELIMITER = " ";
+    private static final Scanner SCANNER = new Scanner(System.in);
+
+    public CalculatorView() {
     }
 
-    public void input() {
-        String value = scanner.nextLine();
-        String[] values = value.split(" ");
+    public static String[] input() {
+        String value = SCANNER.nextLine();
+        return value.split(DELIMITER);
+    }
+
+    public static void printAnswer(int answer) {
+        System.out.println(answer);
     }
 }
