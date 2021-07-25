@@ -11,7 +11,7 @@ public class Operands {
         this.operands = operands;
     }
 
-    public int getElement(int index) {
+    public int indexOf(int index) {
         if (isIndexOutOfRange(index)) {
             throw new IllegalArgumentException("범위를 초과한 index 입니다");
         }
@@ -20,14 +20,14 @@ public class Operands {
     }
 
     private boolean isIndexOutOfRange(int index) {
-        return index < FIRST_INDEX || index >= getOperandsSize();
+        return index < FIRST_INDEX || index >= size();
     }
 
-    public int getOperandsSize() {
+    public int size() {
         return operands.size();
     }
 
-    public int getFirstElement() {
+    public int firstElement() {
         return operands.get(FIRST_INDEX).value();
     }
 }
