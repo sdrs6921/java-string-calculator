@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Expression {
+    private static final int START_ENTRY = 0;
     private static final int MIN_EXPRESSION_SIZE = 3;
+
     private final Operands operands;
     private final Operators operators;
 
@@ -39,7 +41,7 @@ public class Expression {
     }
 
     private List<Operator> parseOperatorsFromTokens(String[] tokens) {
-        return IntStream.range(0, tokens.length)
+        return IntStream.range(START_ENTRY, tokens.length)
                 .filter(index -> !hasEvenIndex(index))
                 .mapToObj(index -> Operator.of(tokens[index]))
                 .collect(Collectors.toList());
@@ -47,7 +49,7 @@ public class Expression {
 
 
     private List<Operand> parseOperandFromTokens(String[] tokens) {
-        return IntStream.range(0, tokens.length)
+        return IntStream.range(START_ENTRY, tokens.length)
                 .filter(this::hasEvenIndex)
                 .mapToObj(index -> Operand.valueOf(tokens[index]))
                 .collect(Collectors.toList());
