@@ -30,6 +30,26 @@ public class Expression {
         return operators;
     }
 
+    public int firstOperand() {
+        return operands.firstElement();
+    }
+
+    public int operandSize() {
+        return operands.size();
+    }
+
+    public int operatorSize() {
+        return operators.size();
+    }
+
+    public int operandIndexOf(int index) {
+        return operands.indexOf(index);
+    }
+
+    public String operatorIndexOf(int index) {
+        return operators.indexOf(index);
+    }
+
     private void validateExpression(int size) {
         if (hasValidateExpressionLength(size)) {
             throw new IllegalStateException("유효하지 않은 수식입니다");
