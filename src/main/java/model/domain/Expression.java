@@ -5,10 +5,9 @@ import model.domain.operand.Operands;
 import model.domain.operator.Operator;
 import model.domain.operator.Operators;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Expression {
     private static final int MIN_EXPRESSION_SIZE = 3;
@@ -40,21 +39,21 @@ public class Expression {
     }
 
     private List<Operator> parseOperatorsFromTokens(String[] tokens) {
-        AtomicInteger index = new AtomicInteger();
-
-        return Arrays.stream(tokens)
-                .filter(token -> index.getAndIncrement() % 2 == 1)
-                .map(Operator::of)
+        return IntStream.range(0, tokens.length)
+                .filter(index -> !hasEvenIndex(index))
+                .mapToObj(index -> Operator.of(tokens[index]))
                 .collect(Collectors.toList());
     }
+
 
     private List<Operand> parseOperandFromTokens(String[] tokens) {
-        AtomicInteger index = new AtomicInteger();
-
-        return Arrays.stream(tokens)
-                .filter(token -> index.getAndIncrement() % 2 == 0)
-                .map(Operand::valueOf)
+        return IntStream.range(0, tokens.length)
+                .filter(this::hasEvenIndex)
+                .mapToObj(index -> Operand.valueOf(tokens[index]))
                 .collect(Collectors.toList());
     }
 
+    private boolean hasEvenIndex(int index) {
+        return index % 2 == 0;
+    }
 }
