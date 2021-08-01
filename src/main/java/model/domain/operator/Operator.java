@@ -2,11 +2,11 @@ package model.domain.operator;
 
 import java.util.Arrays;
 
-public enum Operator implements Operation {
-    PLUS("+", Integer::sum),
-    MINUS("-", (x, y) -> x - y),
-    TIMES("*", (x, y) -> x * y),
-    DIVIDED_BY("/", Operator::divide);
+public enum Operator {
+    PLUS("+", new Addition()),
+    MINUS("-", new Subtraction()),
+    TIMES("*", new Multiplication()),
+    DIVIDED_BY("/", new Division());
 
     private final Operation operation;
     private final String symbol;
@@ -27,16 +27,7 @@ public enum Operator implements Operation {
         return this.symbol;
     }
 
-    @Override
     public int operate(int x, int y) {
         return operation.operate(x, y);
-    }
-
-    private static int divide(int x, int y) {
-        if (y == 0) {
-            throw new IllegalArgumentException("0으로 나눌 수 없습니다");
-        }
-
-        return x / y;
     }
 }
