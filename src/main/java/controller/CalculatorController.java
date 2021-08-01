@@ -5,21 +5,16 @@ import model.domain.Expression;
 import view.CalculatorView;
 
 public class CalculatorController {
-    private Calculator calculator;
+    private final Calculator calculator;
 
-    public CalculatorController() {
+    public CalculatorController(final Calculator calculator) {
+        this.calculator = calculator;
     }
 
     public void run() {
-        setUpCalculator();
-        int answer = calculator.calculate();
-        CalculatorView.printAnswer(answer);
-    }
-
-    private void setUpCalculator() {
         String[] tokens = CalculatorView.input();
         Expression expression = new Expression(tokens);
-        calculator = new Calculator(expression);
+        int answer = calculator.calculate(expression);
+        CalculatorView.printAnswer(answer);
     }
-
 }

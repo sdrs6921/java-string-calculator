@@ -1,8 +1,10 @@
 import controller.CalculatorController;
+import model.domain.Calculator;
 
 public class Main {
     public static void main(String[] args) {
-        CalculatorController calculatorController = new CalculatorController();
+        Calculator calculator = new Calculator();
+        CalculatorController calculatorController = new CalculatorController(calculator);
         calculatorController.run();
     }
 }
