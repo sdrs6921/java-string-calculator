@@ -11,12 +11,12 @@ public class Operators {
         this.operators = operators;
     }
 
-    public String indexOf(int index) {
+    public Operator indexOf(int index) {
         if (isIndexOutOfRange(index)) {
             throw new IllegalArgumentException("범위를 초과한 index 입니다");
         }
 
-        return operators.get(index).symbol();
+        return operators.get(index);
     }
 
     public int size() {

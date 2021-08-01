@@ -24,9 +24,9 @@ public class OperatorsTest {
     @Test
     @DisplayName("Operator의 index를 받아 원소를 반환한다")
     void indexOf() {
-        String operator = operators.indexOf(0);
+        Operator operator = operators.indexOf(0);
 
-        assertThat(operator).isEqualTo("+");
+        assertThat(operator).isEqualTo(Operator.PLUS);
     }
 
     @ParameterizedTest
