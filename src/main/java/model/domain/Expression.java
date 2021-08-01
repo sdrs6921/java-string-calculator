@@ -22,14 +22,6 @@ public class Expression {
         this.operators = new Operators(parseOperatorsFromTokens(token));
     }
 
-    public Operands getOperands() {
-        return operands;
-    }
-
-    public Operators getOperators() {
-        return operators;
-    }
-
     public int firstOperand() {
         return operands.firstElement();
     }
@@ -46,7 +38,7 @@ public class Expression {
         return operands.indexOf(index);
     }
 
-    public String operatorIndexOf(int index) {
+    public Operator operatorIndexOf(int index) {
         return operators.indexOf(index);
     }
 

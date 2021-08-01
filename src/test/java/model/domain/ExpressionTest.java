@@ -1,5 +1,6 @@
 package model.domain;
 
+import model.domain.operator.Operator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -51,7 +52,7 @@ public class ExpressionTest {
 
         assertAll(
                 () -> assertThat(expression.operandIndexOf(0)).isEqualTo(1),
-                () -> assertThat(expression.operatorIndexOf(0)).isEqualTo("+")
+                () -> assertThat(expression.operatorIndexOf(0)).isEqualTo(Operator.PLUS)
         );
     }
 }
