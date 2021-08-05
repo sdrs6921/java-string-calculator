@@ -1,15 +1,25 @@
 package model.domain;
 
-import java.util.stream.IntStream;
+import model.domain.operation.Operation;
+import model.domain.operator.Operator;
+
+import static model.domain.operation.Operations.findOperation;
 
 public class Calculator {
 
-    public Calculator() {
+    private Calculator() {
     }
 
-    public int calculate(final Expression expression) {
-        return IntStream.range(0, expression.operatorSize())
-                .reduce(expression.firstOperand(),
-                        (total, index) -> total = expression.operatorIndexOf(index).operate(total, expression.operandIndexOf(index + 1)));
+    public static int calculate(final Expression expression) {
+        int answer = expression.nextOperand();
+
+        while (expression.hasNextOperand()) {
+            Operator operator = expression.nextOperator();
+            int nextOperand = expression.nextOperand();
+            Operation operation = findOperation(operator);
+            answer = operation.operate(answer, nextOperand);
+        }
+
+        return answer;
     }
 }

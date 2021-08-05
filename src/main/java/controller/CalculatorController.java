@@ -1,20 +1,16 @@
 package controller;
 
-import model.domain.Calculator;
 import model.domain.Expression;
 import view.CalculatorView;
 
-public class CalculatorController {
-    private final Calculator calculator;
+import static model.domain.Calculator.calculate;
 
-    public CalculatorController(final Calculator calculator) {
-        this.calculator = calculator;
-    }
+public class CalculatorController {
 
     public void run() {
         String[] tokens = CalculatorView.input();
         Expression expression = new Expression(tokens);
-        int answer = calculator.calculate(expression);
+        int answer = calculate(expression);
         CalculatorView.printAnswer(answer);
     }
 }

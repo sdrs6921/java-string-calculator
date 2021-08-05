@@ -8,19 +8,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static model.domain.Calculator.calculate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class CalculatorTest {
-    private final Calculator calculator = new Calculator();
 
     @ParameterizedTest
     @MethodSource("validParameterProvider")
     @DisplayName("Expression을 입력받아 값을 계산하여 반환한다")
-    void calculate2(String[] token, int answer) {
-        Expression expression = new Expression(token);
-
-        int expect = calculator.calculate(expression);
+    void calculate2(Expression expression, int answer) {
+        int expect = calculate(expression);
 
         assertThat(expect).isEqualTo(answer);
     }
@@ -32,14 +31,16 @@ class CalculatorTest {
         Expression expression = new Expression(invalidToken);
 
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> calculator.calculate(expression))
-                .withMessage("0으로 나눌 수 없습니다");
+                .isThrownBy(() -> calculate(expression))
+                .withMessage("0으로 나눌 수 없음");
     }
 
     static Stream<Arguments> validParameterProvider() {
         return Stream.of(
-                Arguments.of(new String[]{"4", "+", "5"}, 9), Arguments.of(new String[]{"2", "-", "1"}, 1),
-                Arguments.of(new String[]{"1", "*", "2"}, 2), Arguments.of(new String[]{"2", "/", "1"}, 2),
-                Arguments.of(new String[]{"4", "+", "1", "-", "2"}, 3));
+                arguments(new Expression(new String[]{"4", "+", "5"}), 9),
+                arguments(new Expression(new String[]{"2", "-", "1"}), 1),
+                arguments(new Expression(new String[]{"1", "*", "2"}), 2),
+                arguments(new Expression(new String[]{"2", "/", "1"}), 2),
+                arguments(new Expression(new String[]{"4", "+", "1", "-", "2"}), 3));
     }
 }
