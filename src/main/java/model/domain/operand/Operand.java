@@ -9,7 +9,7 @@ public class Operand {
     private static final String OPERAND_PATTERN_REGEX = "^[0-9]+$";
     private static final Pattern OPERAND_PATTERN = Pattern.compile(OPERAND_PATTERN_REGEX);
 
-    private Operand(String value) {
+    private Operand(final String value) {
         if (Objects.isNull(value) || !OPERAND_PATTERN.matcher(value).matches()) {
             throw new IllegalArgumentException("올바른 피연산자가 아닙니다");
         }
@@ -17,7 +17,7 @@ public class Operand {
         this.value = Integer.parseInt(value);
     }
 
-    public static Operand valueOf(String value) {
+    public static Operand valueOf(final String value) {
         return new Operand(value);
     }
 

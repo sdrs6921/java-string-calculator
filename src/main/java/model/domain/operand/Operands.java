@@ -6,7 +6,7 @@ import java.util.Queue;
 public class Operands {
     private final Queue<Operand> values;
 
-    public Operands(Queue<Operand> values) {
+    public Operands(final Queue<Operand> values) {
         this.values = values;
     }
 

@@ -5,7 +5,7 @@ import model.domain.operator.Operator;
 public class Subtraction implements Operation {
 
     @Override
-    public boolean hasOperator(Operator operator) {
+    public boolean hasOperator(final Operator operator) {
         return Operator.MINUS == operator;
     }
 

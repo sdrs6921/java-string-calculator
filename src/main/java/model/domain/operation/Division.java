@@ -5,7 +5,7 @@ import model.domain.operator.Operator;
 public class Division implements Operation {
 
     @Override
-    public boolean hasOperator(Operator operator) {
+    public boolean hasOperator(final Operator operator) {
         return Operator.DIVIDED_BY == operator;
     }
 

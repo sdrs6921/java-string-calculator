@@ -5,7 +5,7 @@ import model.domain.operator.Operator;
 public class Addition implements Operation {
 
     @Override
-    public boolean hasOperator(Operator operator) {
+    public boolean hasOperator(final Operator operator) {
         return Operator.PLUS == operator;
     }
 

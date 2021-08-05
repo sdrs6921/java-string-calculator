@@ -39,17 +39,17 @@ public class Expression {
         return operators.next();
     }
 
-    private void validateExpression(int size) {
+    private void validateExpression(final int size) {
         if (hasValidateExpressionLength(size)) {
             throw new IllegalStateException("유효하지 않은 수식입니다");
         }
     }
 
-    private boolean hasValidateExpressionLength(int size) {
+    private boolean hasValidateExpressionLength(final int size) {
         return size % 2 == 0 || size < MIN_EXPRESSION_SIZE;
     }
 
-    private Queue<Operator> parseOperatorsFromTokens(String[] tokens) {
+    private Queue<Operator> parseOperatorsFromTokens(final String[] tokens) {
         return IntStream.range(START_ENTRY, tokens.length)
                 .filter(index -> !hasEvenIndex(index))
                 .mapToObj(index -> Operator.of(tokens[index]))
@@ -57,14 +57,14 @@ public class Expression {
     }
 
 
-    private Queue<Operand> parseOperandFromTokens(String[] tokens) {
+    private Queue<Operand> parseOperandFromTokens(final String[] tokens) {
         return IntStream.range(START_ENTRY, tokens.length)
                 .filter(this::hasEvenIndex)
                 .mapToObj(index -> Operand.valueOf(tokens[index]))
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    private boolean hasEvenIndex(int index) {
+    private boolean hasEvenIndex(final int index) {
         return index % 2 == 0;
     }
 }

@@ -2,12 +2,15 @@ package view;
 
 import java.util.Scanner;
 
+import static java.lang.System.in;
+import static java.lang.System.out;
+
 public class CalculatorView {
 
     private static final String DELIMITER = " ";
-    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(in);
 
-    public CalculatorView() {
+    private CalculatorView() {
     }
 
     public static String[] input() {
@@ -16,6 +19,6 @@ public class CalculatorView {
     }
 
     public static void printAnswer(int answer) {
-        System.out.println(answer);
+        out.println(answer);
     }
 }

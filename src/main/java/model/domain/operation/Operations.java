@@ -10,13 +10,13 @@ public class Operations {
     private Operations() {
     }
 
-    private static final List<Operation> OPERATIONS
+    private static final List<Operation> OPERATION_STRATEGIES
             = Arrays.asList(new Addition(), new Subtraction(), new Multiplication(), new Division());
 
-    public static Operation findOperation(Operator operator) {
-        return OPERATIONS.stream()
+    public static Operation findOperation(final Operator operator) {
+        return OPERATION_STRATEGIES.stream()
                 .filter(operation -> operation.hasOperator(operator))
                 .findAny()
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalArgumentException("유효한 연산자가 아닙니다"));
     }
 }
