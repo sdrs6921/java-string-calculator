@@ -20,7 +20,7 @@ class ExpressionTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("길이가 3이하이거나 짝수가 아닌 토큰을 입력하면 예외를 발생시킨다")
     void create_throw_exception_with_invalid_token() {
         String[] token = "1 + ".split("");
 
@@ -42,11 +42,11 @@ class ExpressionTest {
     }
 
     @Test
-    @DisplayName("다음 연산자의 존재 여부를 반환한다")
+    @DisplayName("다음 피연산자의 존재 여부를 반환한다")
     void hasNextOperand() {
         boolean hasNextOperand = expression.hasNextOperand();
-        expression.hasNextOperand();
-        expression.hasNextOperand();
+        expression.nextOperand();
+        expression.nextOperand();
         boolean doesNotHasNextOperand = expression.hasNextOperand();
 
         assertAll(
@@ -56,7 +56,7 @@ class ExpressionTest {
     }
 
     @Test
-    @DisplayName("다음 연산자의 존재 여부를 반환한다")
+    @DisplayName("다음 연산자를 반환한다")
     void nextOperator() {
         Operator nextOperator = expression.nextOperator();
 
@@ -64,7 +64,7 @@ class ExpressionTest {
     }
 
     @Test
-    @DisplayName("다음 연산자의 존재 여부를 반환한다")
+    @DisplayName("다음 연산자를 반환한다")
     void nextOperand() {
         int expected = 1;
         int nextOperand = expression.nextOperand();
