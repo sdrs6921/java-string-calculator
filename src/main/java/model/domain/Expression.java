@@ -5,7 +5,8 @@ import model.domain.operand.Operands;
 import model.domain.operator.Operator;
 import model.domain.operator.Operators;
 
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -22,24 +23,20 @@ public class Expression {
         this.operators = new Operators(parseOperatorsFromTokens(token));
     }
 
-    public int firstOperand() {
-        return operands.firstElement();
+    public boolean hasNextOperand() {
+        return operands.hasNext();
     }
 
-    public int operandSize() {
-        return operands.size();
+    public int nextOperand() {
+        return operands.next();
     }
 
-    public int operatorSize() {
-        return operators.size();
+    public boolean hasNextOperator() {
+        return operators.hasNext();
     }
 
-    public int operandIndexOf(int index) {
-        return operands.indexOf(index);
-    }
-
-    public Operator operatorIndexOf(int index) {
-        return operators.indexOf(index);
+    public Operator nextOperator() {
+        return operators.next();
     }
 
     private void validateExpression(int size) {
@@ -52,19 +49,19 @@ public class Expression {
         return size % 2 == 0 || size < MIN_EXPRESSION_SIZE;
     }
 
-    private List<Operator> parseOperatorsFromTokens(String[] tokens) {
+    private Queue<Operator> parseOperatorsFromTokens(String[] tokens) {
         return IntStream.range(START_ENTRY, tokens.length)
                 .filter(index -> !hasEvenIndex(index))
                 .mapToObj(index -> Operator.of(tokens[index]))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
-    private List<Operand> parseOperandFromTokens(String[] tokens) {
+    private Queue<Operand> parseOperandFromTokens(String[] tokens) {
         return IntStream.range(START_ENTRY, tokens.length)
                 .filter(this::hasEvenIndex)
                 .mapToObj(index -> Operand.valueOf(tokens[index]))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     private boolean hasEvenIndex(int index) {
