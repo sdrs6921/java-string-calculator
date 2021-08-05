@@ -15,7 +15,7 @@ public class Operands {
     }
 
     public int next() {
-        if (Objects.isNull(values) || values.isEmpty()) {
+        if (Objects.isNull(values) || !hasNext()) {
             throw new IllegalStateException("연산자가 없습니다");
         }
 
