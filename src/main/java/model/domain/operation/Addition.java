@@ -1,4 +1,6 @@
-package model.domain.operator;
+package model.domain.operation;
+
+import model.domain.operator.Operator;
 
 public class Addition implements Operation {
 

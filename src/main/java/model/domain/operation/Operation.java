@@ -1,4 +1,6 @@
-package model.domain.operator;
+package model.domain.operation;
+
+import model.domain.operator.Operator;
 
 public interface Operation {
 

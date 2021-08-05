@@ -1,11 +1,6 @@
-package model.domain;
+package model.domain.operation;
 
-import model.domain.operator.Addition;
-import model.domain.operator.Division;
-import model.domain.operator.Multiplication;
-import model.domain.operator.Operation;
 import model.domain.operator.Operator;
-import model.domain.operator.Subtraction;
 
 import java.util.Arrays;
 import java.util.List;

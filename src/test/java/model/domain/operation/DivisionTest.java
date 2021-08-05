@@ -1,5 +1,6 @@
-package model.domain.operator;
+package model.domain.operation;
 
+import model.domain.operator.Operator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

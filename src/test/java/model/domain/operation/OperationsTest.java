@@ -1,11 +1,6 @@
-package model.domain;
+package model.domain.operation;
 
-import model.domain.operator.Addition;
-import model.domain.operator.Division;
-import model.domain.operator.Multiplication;
-import model.domain.operator.Operation;
 import model.domain.operator.Operator;
-import model.domain.operator.Subtraction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static model.domain.Operations.findOperation;
+import static model.domain.operation.Operations.findOperation;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
