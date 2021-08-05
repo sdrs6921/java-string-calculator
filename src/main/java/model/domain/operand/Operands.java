@@ -1,33 +1,24 @@
 package model.domain.operand;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Queue;
 
 public class Operands {
-    private static final int FIRST_INDEX = 0;
+    private final Queue<Operand> values;
 
-    private final List<Operand> operands;
-
-    public Operands(List<Operand> operands) {
-        this.operands = operands;
+    public Operands(Queue<Operand> values) {
+        this.values = values;
     }
 
-    public int indexOf(int index) {
-        if (isIndexOutOfRange(index)) {
-            throw new IllegalArgumentException("범위를 초과한 index 입니다");
+    public boolean hasNext() {
+        return !values.isEmpty();
+    }
+
+    public int next() {
+        if (Objects.isNull(values) || values.isEmpty()) {
+            throw new IllegalStateException("연산자가 없습니다");
         }
 
-        return operands.get(index).value();
-    }
-
-    private boolean isIndexOutOfRange(int index) {
-        return index < FIRST_INDEX || index >= size();
-    }
-
-    public int size() {
-        return operands.size();
-    }
-
-    public int firstElement() {
-        return operands.get(FIRST_INDEX).value();
+        return values.poll().value();
     }
 }

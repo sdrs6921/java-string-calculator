@@ -1,59 +1,63 @@
 package model.domain.operand;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class OperandsTest {
-    private static final String OPERAND_TOKEN = "2";
-    private static final int OPERAND = Integer.parseInt(OPERAND_TOKEN);
-
     private Operands operands;
 
-    @BeforeEach
-    void setUp() {
-        List<Operand> singleOperands = Collections.singletonList(Operand.valueOf(OPERAND_TOKEN));
-        operands = new Operands(singleOperands);
-    }
+    @ParameterizedTest
+    @MethodSource("hasNextParameterProvider")
+    @DisplayName("피연산자가 존재하면 참, 존재하지 않으면 거짓을 반환한다")
+    void hasNext(Queue<Operand> values, boolean expect) {
+        Operands operands = new Operands(values);
 
-    @Test
-    @DisplayName("Operands의 index를 받아 Operand의 값을 리턴합니댜")
-    void indexOf() {
-        int operand = operands.indexOf(0);
+        boolean actual = operands.hasNext();
 
-        assertThat(operand).isEqualTo(OPERAND);
+        assertThat(actual).isEqualTo(expect);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"-1", "1"})
-    @DisplayName("operands의 index가 범위를 벗어날 경우 예외를 발생시킨다")
-    void indexOf_throw_exception_with_index_out_of_range(int outOfRangeIndex) {
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> operands.indexOf(outOfRangeIndex))
-                .withMessage("범위를 초과한 index 입니다");
+    @CsvSource(value = {"1,1", "2,2", "3,3"})
+    @DisplayName("피연산자의 다음 값을 반환한다")
+    void next(String value, int expect) {
+        Queue<Operand> values
+                = new LinkedList<>(Collections.singletonList(Operand.valueOf(value)));
+        Operands operands = new Operands(values);
+
+        assertThat(operands.next()).isEqualTo(expect);
     }
 
-    @Test
-    @DisplayName("Operands의 크기를 반환한다")
-    void getOperandsSize() {
-        int operandsSize = operands.size();
+    @ParameterizedTest
+    @MethodSource("nextExceptionParameterProvider")
+    @DisplayName("피연산자의 다음 값 요청시 객체가 존재하지 않거나 값이 없는 경우 예외를 발생시킨다")
+    void next_throw_exception_with_null_or_empty_operands(Queue<Operand> values) {
+        Operands operands = new Operands(values);
 
-        assertThat(operandsSize).isEqualTo(1);
+        assertThatIllegalStateException().isThrownBy(operands::next)
+                .withMessage("연산자가 없습니다");
     }
 
-    @Test
-    @DisplayName("Operand의 첫번째 원소를 반환한다")
-    void getFirstElement() {
-        int firstOperand = operands.firstElement();
+    static Stream<Arguments> hasNextParameterProvider() {
+        return Stream.of(
+                arguments(new LinkedList<>(Collections.singletonList(Operand.valueOf("1"))), true),
+                arguments(new LinkedList<>(), false)
+        );
+    }
 
-        assertThat(firstOperand).isEqualTo(OPERAND);
+    static Stream<Queue<Operand>> nextExceptionParameterProvider() {
+        return Stream.of(null, new LinkedList<>());
     }
 }
