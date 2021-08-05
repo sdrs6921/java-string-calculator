@@ -1,33 +1,24 @@
 package model.domain.operator;
 
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.Objects;
+import java.util.Queue;
 
 public class Operators {
-    private static final int FIRST_INDEX = 0;
-    private final List<Operator> operators;
+    private final Queue<Operator> values;
 
-    public Operators(List<Operator> operators) {
-        this.operators = operators;
+    public Operators(Queue<Operator> values) {
+        this.values = values;
     }
 
-    public Operator indexOf(int index) {
-        if (isIndexOutOfRange(index)) {
-            throw new IllegalArgumentException("범위를 초과한 index 입니다");
+    public boolean hasNext() {
+        return !values.isEmpty();
+    }
+
+    public Operator next() {
+        if (Objects.isNull(values) || !hasNext()) {
+            throw new IllegalStateException("연산자가 없습니다");
         }
 
-        return operators.get(index);
-    }
-
-    public int size() {
-        return operators.size();
-    }
-
-    public Stream<Operator> stream() {
-        return operators.stream();
-    }
-
-    private boolean isIndexOutOfRange(int index) {
-        return index < FIRST_INDEX || index >= size();
+        return values.poll();
     }
 }
