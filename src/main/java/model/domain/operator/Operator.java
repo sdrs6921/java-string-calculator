@@ -3,17 +3,15 @@ package model.domain.operator;
 import java.util.Arrays;
 
 public enum Operator {
-    PLUS("+", new Addition()),
-    MINUS("-", new Subtraction()),
-    TIMES("*", new Multiplication()),
-    DIVIDED_BY("/", new Division());
+    PLUS("+"),
+    MINUS("-"),
+    TIMES("*"),
+    DIVIDED_BY("/");
 
-    private final Operation operation;
     private final String symbol;
 
-    Operator(final String symbol, final Operation operation) {
+    Operator(final String symbol) {
         this.symbol = symbol;
-        this.operation = operation;
     }
 
     public static Operator of(final String symbol) {
@@ -25,9 +23,5 @@ public enum Operator {
 
     public String symbol() {
         return this.symbol;
-    }
-
-    public int operate(int x, int y) {
-        return operation.operate(x, y);
     }
 }
